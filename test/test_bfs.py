@@ -40,8 +40,26 @@ def test_empty_graph_bfs():
     
 
     try:
-        empty_graph.bfs('A', 'B')
+      
+        empty_graph.bfs(start = 'Martin Kampmann')
         assert False, "bfs should raise an exception for an empty graph"
+        
     except ValueError as e:
+      
         assert str(e) == "Graph is empty or no graph is provided", "Empty graph should raise a different value error"
 
+
+def test_bad_start_node_bfs(): 
+
+    """
+    """
+    test_graph = Graph("data/tiny_network.adjlist")
+    
+    try: 
+      
+      test_graph.bfs(start = 'Tony Capra')
+      assert False, "start node is not in graph, which should have raised an error"
+      
+    except ValueError as e:
+      
+      assert str(e) == "Provided start node is not in graph", "start node is not in graph, which should have raised a different error"
