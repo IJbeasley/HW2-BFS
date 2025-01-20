@@ -1,5 +1,5 @@
 
-![BuildStatus](https://github.com/IJbeasley/HW2-BFS/workflows/Assignment%20Tests/badge.svg?event=push) 
+![BuildStatus](https://github.com/IJbeasley/HW2-BFS/workflows/Assignment%20Tests/badge.svg) 
 
 # Assignment 2
 Breadth-first search
