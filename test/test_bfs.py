@@ -1,7 +1,7 @@
 # write tests for bfs
 import pytest
 import networkx as nx
-from search import graph
+from search import Graph
 
 def test_bfs_traversal():
     """
@@ -27,13 +27,20 @@ def test_bfs():
     pass
 
 
+
 def test_empty_graph_bfs():
     """
     """
-    test_graph = nx.null_graph()
+    
+    # make + save empty graph for testing: 
+    # empty_graph = nx.null_graph() 
+    # nx.write_adjlist(empty_graph, "data/empty_graph.adjlist")
+    
+    empty_graph = Graph("data/empty_graph.adjlist")
+    
 
     try:
-        bfs(test_graph, 'A', 'B')
+        empty_graph.bfs('A', 'B')
         assert False, "bfs should raise an exception for an empty graph"
     except ValueError as e:
         assert str(e) == "Graph is empty or no graph is provided", "Empty graph should raise a different value error"
