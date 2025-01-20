@@ -108,5 +108,12 @@ class Graph:
                 return None
 
 
+    graph = nx.null_graph()
+
+    bfs(graph, 'A', 'F') # ['A', 'B', 'D', 'F']
+
+    
+
+
 
 
