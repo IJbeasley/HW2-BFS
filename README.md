@@ -1,3 +1,6 @@
+
+![BuildStatus](https://github.com/IJbeasley/HW2-BFS/workflows/Project%20Tests/badge.svg?event=push) 
+
 # Assignment 2
 Breadth-first search
 
@@ -40,10 +43,6 @@ In test/test_bfs.py:
 	* [post 2](https://mattsegal.dev/pytest-on-github-actions.html)
 
 * [ ] Add "! [BuildStatus] (https://github.com/ < your-github-username > /HW2-BFS/workflows/HW2-BFS/badge.svg?event=push)" (update link and remove spaces) to the beginning of your readme file
-
-![](https://github.com/IJbeasley/HW2-BFS/workflows/Project%20Tests/badge.svg)
-
-
 
 	* Also refer to previous assignment for more in-depth help with GitHub actions
 
