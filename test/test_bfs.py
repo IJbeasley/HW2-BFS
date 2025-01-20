@@ -11,6 +11,13 @@ def test_bfs_traversal():
     that all nodes are being traversed (ie. returns 
     the right number of nodes, in the right order, etc.)
     """
+
+    test_graph = Graph("data/tiny_network.adjlist")
+    # test bfs traversal - which is done when end=None
+    bfs_traversal = test_graph.bfs(start = 'Martin Kampmann', end = None)
+
+    print(bfs_traversal)
+
     pass
 
 def test_bfs():
@@ -24,6 +31,8 @@ def test_bfs():
     Include an additional test for nodes that are not connected 
     which should return None. 
     """
+
+
     pass
 
 
