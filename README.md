@@ -26,7 +26,7 @@ In search/graph.py:
 In test/test_bfs.py:
 * [ ] Write unit tests for breadth-first traversal and breadth-first search 
     * You may use the two networks provided in the data folder or create your own for testing
-* [ ] Test at least 2 possible edge cases (listed above)
+* [x] Test at least 2 possible edge cases (listed above)
     *  Include a test case that fails and raises an exception
 
 
@@ -35,14 +35,14 @@ In test/test_bfs.py:
 * [ ] Write unit tests (in the test_bfs.py file) for your breadth first search
 * [ ] Replace these instructions with a brief description of bfs in your forked repo
 	
-* [ ] Automate Testing with a [Github Actions](https://docs.github.com/en/actions)
+* [x] Automate Testing with a [Github Actions](https://docs.github.com/en/actions)
 
 	See blogposts below on helping set up github actions with pytest:
 	
 	* [post 1](https://blog.dennisokeeffe.com/blog/2021-08-08-pytest-with-github-actions)
 	* [post 2](https://mattsegal.dev/pytest-on-github-actions.html)
 
-* [ ] Add "! [BuildStatus] (https://github.com/ < your-github-username > /HW2-BFS/workflows/HW2-BFS/badge.svg?event=push)" (update link and remove spaces) to the beginning of your readme file
+* [x] Add "! [BuildStatus] (https://github.com/ < your-github-username > /HW2-BFS/workflows/HW2-BFS/badge.svg?event=push)" (update link and remove spaces) to the beginning of your readme file
 
 	* Also refer to previous assignment for more in-depth help with GitHub actions
 
