@@ -23,7 +23,7 @@ class Graph:
         all_bfs_queues.reverse()
 
         # push end node to stack
-        stack.append(all_bfs_queues.pop(0)[0]t)
+        stack.append(all_bfs_queues.pop(0)[0])
 
         # Initialize path
         path = []
@@ -61,10 +61,18 @@ class Graph:
 
         """
 
+        # Check - if graph is empty
+        if self.graph is None or len(self.graph.nodes) == 0: 
+            raise ValueError("Graph is empty or no graph is provided")
+
+        # Check if start node exists, and is in graph
+        if start is None or start not in self.graph.nodes:
+            raise ValueError("Provided start node is not in graph")
+
         # Initialize queue
         queue = []
 
-        # add a tracking queue 
+        # add a tracking list of all queues
         all_bfs_queues = [[start]]
 
         # Initialize list of visited nodes
@@ -98,10 +106,6 @@ class Graph:
 
             else:
                 return None
-    
-
-
-        return visited
 
 
 
