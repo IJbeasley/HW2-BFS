@@ -108,9 +108,9 @@ class Graph:
                 return None
 
 
-    graph = nx.null_graph()
+graph = nx.null_graph()
 
-    bfs(graph, 'A', 'F') # ['A', 'B', 'D', 'F']
+bfs(graph, 'A', 'F') # ['A', 'B', 'D', 'F']
 
     
 
