@@ -78,7 +78,7 @@ class Graph:
         # Initialize list of visited nodes
         visited = []
         # push source node to queue
-        queue.append([start])
+        queue.append(start)
         # mark source node as visited
         visited.append(start)
 
