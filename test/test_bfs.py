@@ -39,9 +39,10 @@ def test_bfs():
 
 def test_empty_graph_bfs():
     """
+    Test bfs correctly raises an error on an empty graph (saved as data/empty_graph.adjlist)
     """
     
-    # make + save empty graph for testing: 
+    # this is how the empty graph was made + saved 
     # empty_graph = nx.null_graph() 
     # nx.write_adjlist(empty_graph, "data/empty_graph.adjlist")
     
@@ -61,7 +62,9 @@ def test_empty_graph_bfs():
 def test_bad_start_node_bfs(): 
 
     """
+    Test bfs correctly raises an error when the start node is not in the graph
     """
+
     test_graph = Graph("data/tiny_network.adjlist")
     
     try: 
