@@ -4,8 +4,17 @@
 # Assignment 2
 Breadth-first search
 
-# Assignment Overview
-The purpose of this assignment is to get you comfortable working with graph structures and to implement a breadth-first search function to traverse the graph and find the shortest path between nodes.
+##  Description of Breadth-first search
+
+Breadth-first search (bfs) is an algorithm for traversing a graph, or in other words, exploring its nodes and edges. This algorithm's approach to exploring a graph is to start at a given source node and then explore all unvisited neighboring nodes (frontier nodes) at the same step. This traversal approach means bfs visits nodes in order of their shortest distance from the source node.
+
+Implementing this algorithm's prioritization of frontier nodes requires a linear data structure that performs operations in a 'First In, First Out'  (FIFO) manner, called a 'Queue.' This data structure is known as a queue because it functions analogously to real-world service queues (e.g. in supermarkets), where the people who first line up in a queue are the first served. Once nodes have entered the queue, the bfs algorithm considers them visited. 
+
+## Description of search module
+
+The search module in this repository contains functions to implement bfs algorithm on Graph class objects (class from networkx python package). 
+
+
 
 # Assignment Tasks
 
@@ -17,9 +26,9 @@ In search/graph.py:
 	* [ ] If an end node is provided and a path does not exist, returns None
 
 * Be sure that your code can handle possible edge cases, e.g.:
-	* [ ] running bfs traversal on an empty graph
+	* [x] running bfs traversal on an empty graph
 	* [ ] running bfs traversal on an unconnected graph
-	* [ ] running bfs from a start node that does not exist in the graph
+	* [x] running bfs from a start node that does not exist in the graph
 	* [ ] running bfs search for an end node that does not exist in the graph
 	* [ ] any other edge cases you can think of 
 
@@ -48,36 +57,3 @@ In test/test_bfs.py:
 
 	Ensure that the github actions complete the following:
 	* runs pytest
-
-# Getting Started
-To get started you will need to fork this repository onto your own github. You will then work on the code base from your own repo and make changes to it in the form of commits. 
-
-# Reference Information
-## Test Data
-Two networks have been provided in an adjacency list format readable by [networkx](https://networkx.org/), is a commonly used python package for working with graph structures. These networks consist of two types of nodes:
-* Faculty nodes 
-* Pubmed ID nodes
-
-However, since these are both stored as strings, you can treat them as equivalent nodes when traversing the graph. The first graph ("citation_network.adjlist") has nodes consisting of all BMI faculty members, the top 100 Pubmed papers *cited by* faculty, and the top 100 papers that *cite* faculty publications. Edges are directed and and edge from node A -> B indicates that node A *is cited by* node B. There are 5120 nodes and 9247 edges in this network.
-
-The second network is a subgraph of the first, consisting of only the nodes and edges along the paths between a small subset of faculty. There are 30 nodes and 64 edges.
-
-# Completing the assignment
-Make sure to push all your code to github, ensure that your unit tests are correct, and submit a link to your github through the google classroom assignment.
-
-# Grading
-
-## Code (6 points)
-* Breadth-first traversal works correctly (3)
-* Traces the path from one faculty to another (2)
-* Handles edge cases (1)
-
-## Unit tests (3 points)
-* Output traversal for mini data set (1)
-* Tests for at least two possible edge cases (1)
-* Correctly uses exceptions (1)
-
-## Style (1 points)
-* Readable code with clear comments and method descriptions
-* Updated README with description of your methods
-
