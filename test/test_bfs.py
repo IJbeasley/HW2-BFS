@@ -13,10 +13,14 @@ def test_bfs_traversal():
     """
 
     test_graph = Graph("data/tiny_network.adjlist")
-    # test bfs traversal - which is done when end=None
-    bfs_traversal = test_graph.bfs(start = 'Martin Kampmann', end = None)
 
-    print(bfs_traversal)
+    # test bfs traversal - which is done when end=None
+    test_bfs_result = test_graph.bfs(start = 'Martin Kampmann', end = None)
+
+    # expected bfs traversal
+    #bfs_traversal = []
+ 
+    #assert test_bfs_result == bfs_traversal, "bfs traversal was not done correctly"
 
     pass
 
@@ -32,6 +36,14 @@ def test_bfs():
     which should return None. 
     """
 
+    test_graph = Graph("data/citation_network.adjlist")
+
+    # Test bfs, find the shortest path between two nodes
+    bfs = test_graph.bfs(start = 'Martin Kampmann', end = 'David M. Blei')
+
+    shortest_path = ['Martin Kampmann', 'David M. Blei']
+
+    #assert bfs == shortest_path, "bfs did not return the shortest path between two nodes"
 
     pass
 
@@ -75,3 +87,20 @@ def test_bad_start_node_bfs():
     except ValueError as e:
       
       assert str(e) == "Provided start node is not in graph", "start node is not in graph, which should have raised a different error"
+
+
+def test_unconnected_bfs():
+    """
+    Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
+    """
+    # make the unconnected graph
+    # number of nodes in graph
+    n = 2
+    unconnected_graph = nx.empty_graph(n)
+    nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
+
+    test_graph = Graph("data/unconnected_graph..adjlist")
+
+    bfs = test_graph.bfs(start = 'A', end = 'B')
+
+    assert bfs == None, "bfs should return None when there is no path between two nodes"
