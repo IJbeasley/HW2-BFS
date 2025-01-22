@@ -99,7 +99,7 @@ def test_unconnected_bfs():
     unconnected_graph = nx.empty_graph(n)
     nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
 
-    test_graph = Graph("data/unconnected_graph..adjlist")
+    test_graph = Graph("data/unconnected_graph.adjlist")
 
     bfs = test_graph.bfs(start = 'A', end = 'B')
 
