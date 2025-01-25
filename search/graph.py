@@ -12,34 +12,66 @@ class Graph:
         """
         self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
 
-    def restricted_dfs(self, start, allowed_nodes, all_bfs_queues):
+    def subgraph(self, nodes):
         """
-        Depth first search algorithm to find the shortest path from start to end node
+
+        """
+        nx_graph = self.graph.subgraph(nodes).copy()
+        subgraph_obj = Graph.__new__(Graph)
+        subgraph_obj.graph = nx_graph
+        return subgraph_obj
+
+    def bfs_traversal_shortestpath(self, start, end, allowed_nodes, all_bfs_queues):
+        """
+        Takes the queues from breadth first search traversal, to find a shortest path
         """
         # Initialize stack
         stack = []
+        
+        print(all_bfs_queues)
+        # Initialize queues (remove last queue, and then reverse)
+        all_bfs_queues.pop()
 
         # Traverse the path between start and end node - in reverse order
+        print(all_bfs_queues)
         all_bfs_queues.reverse()
 
         # push end node to stack
-        stack.append(all_bfs_queues.pop(0)[0])
+        #print(all_bfs_queues)
+        stack.append(end)
+        print(stack)
+        #raise ValueError("kk ")
 
         # Initialize path
         path = []
-
-        # Initalize current node
-        current_node =  all_bfs_queues.pop(0)[0]
-
+        
+        allowed_nodes.reverse()
+        allowed_nodes.pop(0)
+        
+        undir_graph = nx.to_undirected(self.graph)
+        
+        # for each 
         while all_bfs_queues:
                 
                 path.append(stack)
+                #print(all_bfs_queues)
+                print(stack)
+                #raise ValueError("Why?")
                    
                 # what are the neighbours of the current node
-                N = [n for n in self.graph.neighbors(stack)]
+                N = [n for n in undir_graph.neighbors(stack[0])]
+
+                # if any of these neighbours where found in the prior bfs step
+                # then keep these,
+                # otherwise, recursively try the prior steps
+                # until neighbours are found in prior bfs step
+                while True:
+                     if any(N in all_bfs_queues.pop(0) for N in all_bfs_queues[0]):
+                        N = [n for n in all_bfs_queues[0] if n in all_bfs_queues.pop(0)]
+                        break
 
                 # of these neighbours, which were found in prior step of bfs
-                N = [n for n in N if n in all_bfs_queues.pop(0)]
+                #N = [n for n in N if n in all_bfs_queues.pop(0)]
 
                 #  of these neighbours, which have not been visited
                 N = [n for n in N if n not in path]
@@ -81,28 +113,39 @@ class Graph:
         queue.append(start)
         # mark source node as visited
         visited.append(start)
+        
+
 
         # Loop through nodes in graph, as long as end has not been visited
         while queue and end not in visited:
             # take the first node in queue, and find its neighbors
             v = queue.pop(0)
             N = [n for n in self.graph.neighbors(v)]
-            all_bfs_queues.append([N])
+            #print(N)
+            all_bfs_queues.append(N)
 
             # for each neighbor, if it has not been visited, mark it as visited and add it to the queue
-            for w   in N:
+            for w in N:
                 if w not in visited and w not in queue:
                     visited.append(w)
                     queue.append(w)
 
+
+
         # If there's no end node input, return a list nodes with the order of BFS traversal
+        #print(visited)
+        #print(all_bfs_queues)
+        #raise ValueError("WHY????")
         if end is None:
+            print("OK")
+            print(visited)
+            #raise ValueError("WHy?")
             return visited
         else:
         # If there is an end node input and a path exists, return a list of nodes with the order of the shortest path
             if end in visited:
                 
-                return self.restricted_dfs(start, visited, all_bfs_queues)
+                return self.bfs_traversal_shortestpath(start, end, visited, all_bfs_queues)
 
             else:
                 return None
