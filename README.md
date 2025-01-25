@@ -10,7 +10,7 @@ Breadth-first search (bfs) is an algorithm for traversing a graph, or in other w
 
 Implementing this algorithm's prioritization of frontier nodes requires a linear data structure that performs operations in a 'First In, First Out'  (FIFO) manner, called a 'Queue.' This data structure is known as a queue because it functions analogously to real-world service queues (e.g. in supermarkets), where the people who first line up in a queue are the first served. Once nodes have entered the queue, the bfs algorithm considers them visited. 
 
-## Description of search module
+## Description of search module and bfs function
 
 The search module in this repository contains functions to implement bfs algorithm on Graph class objects obtained by reading .adjlist files (using the networkx package)
 
