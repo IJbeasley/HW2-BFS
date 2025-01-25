@@ -17,21 +17,20 @@ def test_bfs_traversal():
     
     test_graph = Graph("data/tiny_network.adjlist")
     
-    test_graph = nx.subgraph(test_graph, ["Charles Chiu", "Atul Butte",  "Steven Altschuler", "Lani Wu", "31395880","33242416", # connected component
+    # select a subgraph of this graph to test bfs traversal on: 
+    # unconnected components shouldn't be observed in test
+    test_subgraph = nx.subgraph(test_graph, ["Charles Chiu", "Atul Butte",  "Steven Altschuler", "Lani Wu", "31395880","33242416", # connected component
                                           "34946850", "34943926" #unconnected component
                                           ])
 
-    # test bfs traversal - which is done when end=None
-  
-    
-    test_bfs_result = test_graph.bfs(start = "Charles Chiu", end = None)
+    # test bfs traversal - which is done when end=None in the bfs function
+    test_bfs_result = test_subgraph.bfs(start = "Charles Chiu", end = None)
 
-    # expected bfs traversal
+    # Compare bfs travels with true / expected bfs traversal
     true_bfs_traversal = ["Charles Chiu", "33242416", "Atul Butte","31395880", "Steven Altschuler", "Lani Wu"]
  
     assert test_bfs_result == true_bfs_traversal, "bfs traversal was not done correctly"
 
-    pass
 
 def test_bfs():
     """
@@ -46,25 +45,30 @@ def test_bfs():
     """
 
     test_graph = Graph("data/citation_network.adjlist")
-    #test_graph = nx.read_adjlist("data/citation_network.adjlist", create_using=nx.DiGraph, delimiter=";")
-    test_graph = test_graph.subgraph(["Elad Ziv", "Jimmie Ye", "Dara Torgerson", "28366442", "28461288"])
     
-    # print(type(test_graph))
-    # plt.figure()
-    #test_graph = nx.read_adjlist(test_graph, create_using=nx.DiGraph, delimiter=";")
-    # nx.draw(test_graph, with_labels=True)
-    # 
-    # plt.savefig("graph_plot.png", format="PNG", dpi=300)  # Save with high resolution
-    # plt.close()
+    # select a subgraph of this graph to test on: 
+    test_subgraph = test_graph.subgraph(["Elad Ziv", "Jimmie Ye", "Dara Torgerson", "28366442", "28461288"])
     
-    # Test bfs, find the shortest path between two nodes
-    bfs_result = test_graph.bfs(start = "Dara Torgerson", end = "Jimmie Ye")
+    # Get bfs function to find the shortest path between two nodes
+    bfs_result = test_subgraph.bfs(start = "Dara Torgerson", end = "Jimmie Ye")
+    
+    # Compare found shortest path with true shortest path
+    true_shortest_path = ["Dara Torgerson","28366442", "Jimmie Ye"]
+    
+    assert bfs_result == true_shortest_path, "bfs did not return the shortest path between two nodes"
 
-    shortest_path = ["Dara Torgerson","28366442", "Jimmie Ye"]
+def test_unconnected_nodes_bfs():
+    """
+    Include an additional test for nodes that are not connected 
+    which should return None. 
+    """
+    
+    test_graph = Graph("data/citation_network.adjlist")
+    
+    bfs_result = test_graph.bfs(start = "Elad Ziv", end = "31803040")
+    
+    assert bfs_result == None, "bfs should return None when there is no path between two nodes"
 
-    #assert bfs == shortest_path, "bfs did not return the shortest path between two nodes"
-
-    pass
 
 
 
@@ -108,7 +112,7 @@ def test_bad_start_node_bfs():
       assert str(e) == "Provided start node is not in graph", "start node is not in graph, which should have raised a different error"
 
 
-def test_unconnected_bfs():
+def test_unconnected_graph_bfs():
     """
     Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
     """
