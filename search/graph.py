@@ -83,7 +83,7 @@ class Graph:
                 
 
                 # Update stack
-                stack = N 
+                stack = [N[0]]
                 
         path.append([start])
         path.reverse()
@@ -125,15 +125,15 @@ class Graph:
             raise ValueError("Provided end node is not in graph")
 
         # Initialize queue
-        queue = []
+        queue = []      
+        # push source node to queue
+        queue.append(start)
 
         # add a tracking list of all queues
         all_bfs_queues = [[start]]
 
         # Initialize list of visited nodes
         visited = []
-        # push source node to queue
-        queue.append(start)
         # mark source node as visited
         visited.append(start)
         

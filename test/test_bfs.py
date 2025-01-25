@@ -23,7 +23,7 @@ def test_bfs_traversal():
     # Compare bfs travels with true / expected bfs traversal
     true_bfs_traversal = ["Charles Chiu", "33242416", "Atul Butte","31395880", "Steven Altschuler", "Lani Wu"]
     
-    assert len(test_bfs_result) == len(true_bfs_result), "BFS traversal didn't search all required nodes"
+    assert len(test_bfs_result) == len(true_bfs_traversal), "BFS traversal didn't search all required nodes"
  
     assert test_bfs_result == true_bfs_traversal, "BFS traversal order was correct"
 
