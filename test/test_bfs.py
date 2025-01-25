@@ -3,8 +3,8 @@ import pytest
 import networkx as nx
 from search import Graph
 #import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
-import scipy
+#import matplotlib.pyplot as plt
+#import scipy
 
 def test_bfs_traversal():
     """
@@ -115,19 +115,19 @@ def test_bad_start_node_bfs():
       
       assert str(e) == "Provided start node is not in graph", "start node is not in graph, which should have raised a different error"
 
-# 
-# def test_unconnected_bfs():
-#     """
-#     Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
-#     """
-#     # make the unconnected graph
-#     # number of nodes in graph
-#     n = 2
-#     unconnected_graph = nx.empty_graph(n)
-#     nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
-# 
-#     test_graph = Graph("data/unconnected_graph.adjlist")
-# 
-#     bfs = test_graph.bfs(start = '0', end = '1')
-# 
-#     assert bfs == None, "bfs should return None when there is no path between two nodes"
+
+def test_unconnected_bfs():
+    """
+    Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
+    """
+    # make the unconnected graph
+    # number of nodes in graph
+    n = 2
+    unconnected_graph = nx.empty_graph(n)
+    nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
+
+    test_graph = Graph("data/unconnected_graph.adjlist")
+
+    bfs = test_graph.bfs(start = '0', end = '1')
+
+    assert bfs == None, "bfs should return None when there is no path between two nodes"
