@@ -2,17 +2,11 @@
 import pytest
 import networkx as nx
 from search import Graph
-#import matplotlib.pyplot as plt
-#import matplotlib.pyplot as plt
-#import scipy
 
 def test_bfs_traversal():
     """
-    TODO: Write your unit test for a breadth-first
-    traversal here. Create an instance of your Graph class 
-    using the 'tiny_network.adjlist' file and assert 
-    that all nodes are being traversed (ie. returns 
-    the right number of nodes, in the right order, etc.)
+    Unit test for a breadth-first traversal. 
+    Checks that all required nodes are being traversed.
     """
     
     test_graph = Graph("data/tiny_network.adjlist")
@@ -28,20 +22,19 @@ def test_bfs_traversal():
 
     # Compare bfs travels with true / expected bfs traversal
     true_bfs_traversal = ["Charles Chiu", "33242416", "Atul Butte","31395880", "Steven Altschuler", "Lani Wu"]
+    
+    assert len(test_bfs_result) == len(true_bfs_result), "BFS traversal didn't search all required nodes"
  
-    assert test_bfs_result == true_bfs_traversal, "bfs traversal was not done correctly"
+    assert test_bfs_result == true_bfs_traversal, "BFS traversal order was correct"
 
 
 def test_bfs():
     """
-    TODO: Write your unit test for your breadth-first 
-    search here. You should generate an instance of a Graph
-    class using the 'citation_network.adjlist' file 
-    and assert that nodes that are connected return 
-    a (shortest) path between them.
+    Unit test for your breadth-first search here to find the shortest path.
     
-    Include an additional test for nodes that are not connected 
-    which should return None. 
+    Checks that providing two connected nodes in a subgraph of the 'citation_network.adjlist' file 
+    to the bfs function returns the shortest path between them.
+
     """
 
     test_graph = Graph("data/citation_network.adjlist")
@@ -57,10 +50,14 @@ def test_bfs():
     
     assert bfs_result == true_shortest_path, "bfs did not return the shortest path between two nodes"
 
+
 def test_unconnected_nodes_bfs():
     """
-    Include an additional test for nodes that are not connected 
-    which should return None. 
+        
+    An additional unit test for nodes that are not connected in a
+    subgraph of the 'citation_network.adjlist' file 
+    
+    Should return None.
     """
     
     test_graph = Graph("data/citation_network.adjlist")
@@ -70,11 +67,30 @@ def test_unconnected_nodes_bfs():
     assert bfs_result == None, "bfs should return None when there is no path between two nodes"
 
 
+def test_unconnected_graph_bfs():
+    """
+    An additional unit test for nodes that are not connected. 
+    Tests that bfs correctly returns None when there is no path between two nodes, 
+    using an entirely unconnected graph.
+    
+    """
+    # make the unconnected graph
+    # number of nodes in graph
+    n = 2
+    unconnected_graph = nx.empty_graph(n)
+    nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
+
+    test_graph = Graph("data/unconnected_graph.adjlist")
+
+    bfs = test_graph.bfs(start = '0', end = '1')
+
+    assert bfs == None, "bfs should return None when there is no path between two nodes"
 
 
 def test_empty_graph_bfs():
     """
-    Test bfs correctly raises an error on an empty graph (saved as data/empty_graph.adjlist)
+    Unit test to check that bfs correctly raises an error
+    when it is applied to an empty graph (saved as data/empty_graph.adjlist)
     """
     
     # this is how the empty graph was made + saved 
@@ -97,7 +113,7 @@ def test_empty_graph_bfs():
 def test_bad_start_node_bfs(): 
 
     """
-    Test bfs correctly raises an error when the start node is not in the graph
+    Unit test to check bfs correctly raises an error when the provided start node is not in the graph
     """
 
     test_graph = Graph("data/tiny_network.adjlist")
@@ -117,7 +133,7 @@ def test_bad_start_node_bfs():
 def test_bad_end_node_bfs(): 
 
     """
-    Test bfs correctly raises an error when the start node is not in the graph
+    Unit test to check bfs correctly raises an error when the start node is not in the graph
     """
 
     test_graph = Graph("data/tiny_network.adjlist")
@@ -133,18 +149,3 @@ def test_bad_end_node_bfs():
 
 
 
-def test_unconnected_graph_bfs():
-    """
-    Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
-    """
-    # make the unconnected graph
-    # number of nodes in graph
-    n = 2
-    unconnected_graph = nx.empty_graph(n)
-    nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
-
-    test_graph = Graph("data/unconnected_graph.adjlist")
-
-    bfs = test_graph.bfs(start = '0', end = '1')
-
-    assert bfs == None, "bfs should return None when there is no path between two nodes"
