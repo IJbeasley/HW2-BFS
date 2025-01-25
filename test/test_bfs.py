@@ -112,6 +112,27 @@ def test_bad_start_node_bfs():
       assert str(e) == "Provided start node is not in graph", "start node is not in graph, which should have raised a different error"
 
 
+
+
+def test_bad_end_node_bfs(): 
+
+    """
+    Test bfs correctly raises an error when the start node is not in the graph
+    """
+
+    test_graph = Graph("data/tiny_network.adjlist")
+    
+    try: 
+      
+      test_graph.bfs(start = 'Lani Wu', end = 'Tony Capra')
+      assert False, "Provided end node is not in graph, which should have raised an error"
+      
+    except ValueError as e:
+      
+      assert str(e) == "Provided end node is not in graph", "End node is not in graph, which should have raised a different error"
+
+
+
 def test_unconnected_graph_bfs():
     """
     Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
