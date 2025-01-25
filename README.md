@@ -12,39 +12,29 @@ Implementing this algorithm's prioritization of frontier nodes requires a linear
 
 ## Description of search module
 
-The search module in this repository contains functions to implement bfs algorithm on Graph class objects (class from networkx python package). 
+The search module in this repository contains functions to implement bfs algorithm on Graph class objects obtained by reading .adjlist files (using the networkx package)
 
+The bfs function in this module performs breadth-first search traversal from the provided source (start) node, and if requested finds the shortest path from this source node to a provided end node, where it exists. 
 
+```
+bfs(self, start, end=None) -> Union[List[str], None] 
 
-# Assignment Tasks
+        """
+        Perform breadth-first search traversal, and if requested find the shortest path. 
 
-## Coding Assessment
-In search/graph.py:
-* [x] Define the function bfs that takes in a graph, start node, and optional node and:
-	* [x] If no end node is provided, returns a list of nodes in order of breadth-first search traversal from the given start node
-	* [x] If an end node is provided and a path exists, returns a list of nodes in order of the shortest path to the end node
-	* [x] If an end node is provided and a path does not exist, returns None
+        If there is no end node provided, this functions return a list nodes in the order of BFS traversal.
+        
+        If there is an end node input, then: 
+          if path exists between the start and end node, a list of nodes with the order of the shortest path is returned.
+          
+          Otherwise if there is no path between the start and end node, None is returned. 
+          
+        Args:
+          Required: 
+            start: Name of start node
+          
+          Optional: 
+            end: Name of end node 
 
-* Be sure that your code can handle possible edge cases, e.g.:
-	* [x] running bfs traversal on an empty graph
-	* [x] running bfs traversal on an unconnected graph
-	* [x] running bfs from a start node that does not exist in the graph
-	* [x] running bfs search for an end node that does not exist in the graph
-	* [x] any other edge cases you can think of 
-
-In test/test_bfs.py:
-* [x] Write unit tests for breadth-first traversal and breadth-first search 
-* [x] Test at least 2 possible edge cases (listed above)
-    *  Include a test case that fails and raises an exception
-
-
-## Software Development Assessment
-
-* [x] Write unit tests (in the test_bfs.py file) for your breadth first search
-* [x] Replace these instructions with a brief description of bfs in your forked repo
-	
-* [x] Automate Testing with a [Github Actions](https://docs.github.com/en/actions)
-    * Ensure that the github actions complete the following:
-        * runs pytest
-* [x] Add "! [BuildStatus] (https://github.com/ < your-github-username > /HW2-BFS/workflows/HW2-BFS/badge.svg?event=push)" (update link and remove spaces) to the beginning of your readme file
-
+        """
+```
