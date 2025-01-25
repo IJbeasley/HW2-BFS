@@ -21,61 +21,48 @@ class Graph:
         subgraph_obj.graph = nx_graph
         return subgraph_obj
 
-    def bfs_traversal_shortestpath(self, start, end, allowed_nodes, all_bfs_queues):
+    def bfs_traversal_shortestpath(self, start, end, all_bfs_queues):
         """
         Takes the queues from breadth first search traversal, to find a shortest path
         """
         # Initialize stack
         stack = []
+        # push end node to stack
+        stack.append(end)
         
-        print(all_bfs_queues)
         # Initialize queues (remove last queue, and then reverse)
         all_bfs_queues.pop()
-
         # Traverse the path between start and end node - in reverse order
-        print(all_bfs_queues)
         all_bfs_queues.reverse()
-
-        # push end node to stack
-        #print(all_bfs_queues)
-        stack.append(end)
-        print(stack)
-        #raise ValueError("kk ")
+        
+        # Use undirected graph so can traverse graph in reverse order
+        undir_graph = nx.to_undirected(self.graph)
 
         # Initialize path
         path = []
         
-        allowed_nodes.reverse()
-        allowed_nodes.pop(0)
-        
-        undir_graph = nx.to_undirected(self.graph)
-        
+
         # for each 
         while all_bfs_queues:
                 
                 path.append(stack)
-                #print(all_bfs_queues)
-                print(stack)
-                #raise ValueError("Why?")
                    
-                # what are the neighbours of the current node
+                # find the neighbours of the current node
                 N = [n for n in undir_graph.neighbors(stack[0])]
 
                 # if any of these neighbours where found in the prior bfs step
-                # then keep these,
+                # then select these neighbours
                 # otherwise, recursively try the prior steps
-                # until neighbours are found in prior bfs step
+                # until neighbours are found in prior bfs steps
                 while True:
                      if any(N in all_bfs_queues.pop(0) for N in all_bfs_queues[0]):
                         N = [n for n in all_bfs_queues[0] if n in all_bfs_queues.pop(0)]
                         break
 
-                # of these neighbours, which were found in prior step of bfs
-                #N = [n for n in N if n in all_bfs_queues.pop(0)]
-
-                #  of these neighbours, which have not been visited
+                #  keep neighbours which have not been visited
                 N = [n for n in N if n not in path]
 
+                # Update stack
                 stack = N.pop(0)
                 
         path.append(start)
@@ -121,7 +108,6 @@ class Graph:
             # take the first node in queue, and find its neighbors
             v = queue.pop(0)
             N = [n for n in self.graph.neighbors(v)]
-            #print(N)
             all_bfs_queues.append(N)
 
             # for each neighbor, if it has not been visited, mark it as visited and add it to the queue
@@ -133,20 +119,19 @@ class Graph:
 
 
         # If there's no end node input, return a list nodes with the order of BFS traversal
-        #print(visited)
-        #print(all_bfs_queues)
-        #raise ValueError("WHY????")
         if end is None:
-            print("OK")
-            print(visited)
-            #raise ValueError("WHy?")
+          
             return visited
+          
         else:
-        # If there is an end node input and a path exists, return a list of nodes with the order of the shortest path
+          
+        # If there is an end node input and a path exists, 
+        # return a list of nodes with the order of the shortest path
             if end in visited:
                 
-                return self.bfs_traversal_shortestpath(start, end, visited, all_bfs_queues)
-
+                return self.bfs_traversal_shortestpath(start, end, all_bfs_queues)
+        # If a path between the start node and end node does not exist
+        # return None
             else:
                 return None
 
