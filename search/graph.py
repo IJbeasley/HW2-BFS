@@ -12,13 +12,24 @@ class Graph:
         """
         self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
 
-    def subgraph(self, nodes):
+    def subgraph(self, nodes: List):
         """
-
+        Returns a subgraph of the graph with on the provided nodes.
+        Wrapper around nx.subgraph which enables the resulting subgraph to also have the Graph class. 
+        
+        Args:
+          nodes (list): A list of node names for the subgraph.
+          
+        Returns:
+          Graph: A new Graph object containing the subgraph.
         """
+        # Get the subgraph
         nx_graph = self.graph.subgraph(nodes).copy()
+        
+        # Initalise subgraph as Graph object
         subgraph_obj = Graph.__new__(Graph)
         subgraph_obj.graph = nx_graph
+        
         return subgraph_obj
 
     def bfs_shortestpath(self, start, end, 
