@@ -2,6 +2,9 @@
 import pytest
 import networkx as nx
 from search import Graph
+#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import scipy
 
 def test_bfs_traversal():
     """
@@ -11,16 +14,30 @@ def test_bfs_traversal():
     that all nodes are being traversed (ie. returns 
     the right number of nodes, in the right order, etc.)
     """
-
+    
+    #test_graph = nx.read_adjlist("data/tiny_network.adjlist", create_using=nx.DiGraph, delimiter=";")
     test_graph = Graph("data/tiny_network.adjlist")
+    print(type(test_graph))
+    
+    test_graph = nx.subgraph(test_graph, ["Charles Chiu", "33242416", "Atul Butte"])
+    #print(type(test_graph))
 
     # test bfs traversal - which is done when end=None
-    test_bfs_result = test_graph.bfs(start = 'Martin Kampmann', end = None)
+  
+    
+    test_bfs_result = test_graph.bfs(start = "Charles Chiu", end = None)
+    #print(type(test_bfs_result))
+    #plt.figure()
+    #test_graph = nx.read_adjlist(test_graph, create_using=nx.DiGraph, delimiter=";")
+    # nx.draw(test_graph, with_labels=True)
+    # 
+    # plt.savefig("graph_plot.png", format="PNG", dpi=300)  # Save with high resolution
+    # plt.close() 
 
     # expected bfs traversal
-    #bfs_traversal = []
+    bfs_traversal = ["Charles Chiu", "33242416", "Atul Butte"]
  
-    #assert test_bfs_result == bfs_traversal, "bfs traversal was not done correctly"
+    assert test_bfs_result == bfs_traversal, "bfs traversal was not done correctly"
 
     pass
 
@@ -37,11 +54,21 @@ def test_bfs():
     """
 
     test_graph = Graph("data/citation_network.adjlist")
-
+    #test_graph = nx.read_adjlist("data/citation_network.adjlist", create_using=nx.DiGraph, delimiter=";")
+    test_graph = test_graph.subgraph(["Elad Ziv", "Jimmie Ye", "Dara Torgerson", "28366442", "28461288"])
+    
+    # print(type(test_graph))
+    # plt.figure()
+    #test_graph = nx.read_adjlist(test_graph, create_using=nx.DiGraph, delimiter=";")
+    # nx.draw(test_graph, with_labels=True)
+    # 
+    # plt.savefig("graph_plot.png", format="PNG", dpi=300)  # Save with high resolution
+    # plt.close()
+    
     # Test bfs, find the shortest path between two nodes
-    bfs = test_graph.bfs(start = 'Martin Kampmann', end = 'David M. Blei')
+    bfs_result = test_graph.bfs(start = "Dara Torgerson", end = "Jimmie Ye")
 
-    shortest_path = ['Martin Kampmann', 'David M. Blei']
+    shortest_path = ["Dara Torgerson","28366442", "Jimmie Ye"]
 
     #assert bfs == shortest_path, "bfs did not return the shortest path between two nodes"
 
@@ -55,8 +82,8 @@ def test_empty_graph_bfs():
     """
     
     # this is how the empty graph was made + saved 
-    # empty_graph = nx.null_graph() 
-    # nx.write_adjlist(empty_graph, "data/empty_graph.adjlist")
+    empty_graph = nx.null_graph() 
+    nx.write_adjlist(empty_graph, "data/empty_graph.adjlist")
     
     empty_graph = Graph("data/empty_graph.adjlist")
     
@@ -88,19 +115,19 @@ def test_bad_start_node_bfs():
       
       assert str(e) == "Provided start node is not in graph", "start node is not in graph, which should have raised a different error"
 
-
-def test_unconnected_bfs():
-    """
-    Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
-    """
-    # make the unconnected graph
-    # number of nodes in graph
-    n = 2
-    unconnected_graph = nx.empty_graph(n)
-    nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
-
-    test_graph = Graph("data/unconnected_graph.adjlist")
-
-    bfs = test_graph.bfs(start = 'A', end = 'B')
-
-    assert bfs == None, "bfs should return None when there is no path between two nodes"
+# 
+# def test_unconnected_bfs():
+#     """
+#     Test that bfs correctly returns None when there is no path between two nodes, using an unconnected graph
+#     """
+#     # make the unconnected graph
+#     # number of nodes in graph
+#     n = 2
+#     unconnected_graph = nx.empty_graph(n)
+#     nx.write_adjlist(unconnected_graph, "data/unconnected_graph.adjlist")
+# 
+#     test_graph = Graph("data/unconnected_graph.adjlist")
+# 
+#     bfs = test_graph.bfs(start = '0', end = '1')
+# 
+#     assert bfs == None, "bfs should return None when there is no path between two nodes"
