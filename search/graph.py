@@ -23,7 +23,11 @@ class Graph:
 
     def bfs_traversal_shortestpath(self, start, end, all_bfs_queues):
         """
-        Takes the queues from breadth first search traversal, to find a shortest path
+        Takes the queues from breadth first search traversal, to find a shortest path.
+        
+        Specifically, it starts from the end node, finds the neighbours of this node
+        and follows the path of the first neighbour that it hasn't visited, and that matches
+        a bfs queue (obtained through bfs traversal) it hasn't seen yet. 
         """
         # Initialize stack
         stack = []
@@ -44,28 +48,37 @@ class Graph:
 
         # for each 
         while all_bfs_queues:
-                
+          
+
                 path.append(stack)
                    
                 # find the neighbours of the current node
                 N = [n for n in undir_graph.neighbors(stack[0])]
+                
 
                 # if any of these neighbours where found in the prior bfs step
                 # then select these neighbours
                 # otherwise, recursively try the prior steps
                 # until neighbours are found in prior bfs steps
                 while True:
-                     if any(N in all_bfs_queues.pop(0) for N in all_bfs_queues[0]):
-                        N = [n for n in all_bfs_queues[0] if n in all_bfs_queues.pop(0)]
-                        break
+                     last_queue = all_bfs_queues.pop(0)
 
+                     if any(n in last_queue for n in N):
+
+                        N = [n for n in N if n in last_queue]
+                        
+                        break
+                      
                 #  keep neighbours which have not been visited
                 N = [n for n in N if n not in path]
+                
 
                 # Update stack
-                stack = N.pop(0)
+                stack = N #N.pop(0)
                 
-        path.append(start)
+        path.append([start])
+        path.reverse()
+        path = [item for sublist in path for item in sublist]
 
         return path
 
