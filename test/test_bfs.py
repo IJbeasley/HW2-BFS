@@ -15,29 +15,21 @@ def test_bfs_traversal():
     the right number of nodes, in the right order, etc.)
     """
     
-    #test_graph = nx.read_adjlist("data/tiny_network.adjlist", create_using=nx.DiGraph, delimiter=";")
     test_graph = Graph("data/tiny_network.adjlist")
-    print(type(test_graph))
     
-    test_graph = nx.subgraph(test_graph, ["Charles Chiu", "33242416", "Atul Butte"])
-    #print(type(test_graph))
+    test_graph = nx.subgraph(test_graph, ["Charles Chiu", "Atul Butte",  "Steven Altschuler", "Lani Wu", "31395880","33242416", # connected component
+                                          "34946850", "34943926" #unconnected component
+                                          ])
 
     # test bfs traversal - which is done when end=None
   
     
     test_bfs_result = test_graph.bfs(start = "Charles Chiu", end = None)
-    #print(type(test_bfs_result))
-    #plt.figure()
-    #test_graph = nx.read_adjlist(test_graph, create_using=nx.DiGraph, delimiter=";")
-    # nx.draw(test_graph, with_labels=True)
-    # 
-    # plt.savefig("graph_plot.png", format="PNG", dpi=300)  # Save with high resolution
-    # plt.close() 
 
     # expected bfs traversal
-    bfs_traversal = ["Charles Chiu", "33242416", "Atul Butte"]
+    true_bfs_traversal = ["Charles Chiu", "33242416", "Atul Butte","31395880", "Steven Altschuler", "Lani Wu"]
  
-    assert test_bfs_result == bfs_traversal, "bfs traversal was not done correctly"
+    assert test_bfs_result == true_bfs_traversal, "bfs traversal was not done correctly"
 
     pass
 
