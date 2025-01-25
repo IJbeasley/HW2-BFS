@@ -101,7 +101,7 @@ class Graph:
         if start is None or start not in self.graph.nodes:
             raise ValueError("Provided start node is not in graph")
           
-        # Check that if end is provided, then it is graph: 
+        # Check that if end is provided, then it is in graph: 
         if end is not None and end not in self.graph.nodes:
             raise ValueError("Provided end node is not in graph")
 
