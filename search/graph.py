@@ -1,10 +1,10 @@
 import networkx as nx
+from typing import List, Union
 
 class Graph:
     """
     Class to contain a graph and your bfs function
     
-    You may add any functions you deem necessary to the class
     """
     def __init__(self, filename: str):
         """
@@ -21,13 +21,22 @@ class Graph:
         subgraph_obj.graph = nx_graph
         return subgraph_obj
 
-    def bfs_traversal_shortestpath(self, start, end, all_bfs_queues):
+    def bfs_shortestpath(self, start, end, 
+                         all_bfs_queues: List[List[str]]
+                         ) -> List[str]:
         """
-        Takes the queues from breadth first search traversal, to find a shortest path.
+        Find the shortest path from start to end using the results from
+        bfs traversal. 
         
         Specifically, it starts from the end node, finds the neighbours of this node
-        and follows the path of the first neighbour that it hasn't visited, and that matches
-        a bfs queue (obtained through bfs traversal) it hasn't seen yet. 
+        and follows the bfs traversal path in reverse of the first neighbour that it hasn't visited. 
+        
+        Args:
+          Required: 
+            start: Name of start node
+            end: Name of end node 
+            all_bfs_queues: List of queues (List[str]) obtained from bfs traversal
+            
         """
         # Initialize stack
         stack = []
@@ -74,7 +83,7 @@ class Graph:
                 
 
                 # Update stack
-                stack = N #N.pop(0)
+                stack = N 
                 
         path.append([start])
         path.reverse()
@@ -83,13 +92,23 @@ class Graph:
         return path
 
 
-    def bfs(self, start, end=None):
+    def bfs(self, start, end=None) -> Union[List[str], None]:
         """
-        TODO: write a method that performs a breadth first traversal and pathfinding on graph G
+        Perform breadth-first search traversal, and if requested find the shortest path. 
 
-        * If there's no end node input, return a list nodes with the order of BFS traversal
-        * If there is an end node input and a path exists, return a list of nodes with the order of the shortest path
-        * If there is an end node input and a path does not exist, return None
+        If there is no end node provided, this functions return a list nodes in the order of BFS traversal.
+        
+        If there is an end node input, then: 
+          if path exists between the start and end node, a list of nodes with the order of the shortest path is returned.
+          
+          Otherwise if there is no path between the start and end node, None is returned. 
+          
+        Args:
+          Required: 
+            start: Name of start node
+          
+          Optional: 
+            end: Name of end node 
 
         """
 
@@ -146,7 +165,7 @@ class Graph:
         # return a list of nodes with the order of the shortest path
             if end in visited:
                 
-                return self.bfs_traversal_shortestpath(start, end, all_bfs_queues)
+                return self.bfs_shortestpath(start, end, all_bfs_queues)
         # If a path between the start node and end node does not exist
         # return None
             else:
